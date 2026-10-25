@@ -1,0 +1,128 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}Contact Us | Advanced Blog{% endblock %}
+
+{% block content %}
+<section class="contact-main pt-0 pb-5 contact1 bg-grey">
+  <div class="map mb-10">
+    <div style="width: 100%">
+      <iframe height="500"
+              src="https://maps.google.com/maps?width=100%25&amp;height=400&amp;hl=en&amp;q=mangal%20bazar&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed">
+      </iframe>
+    </div>
+  </div>
+
+  <div class="container">
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-success">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <div class="contact-info">
+      <div class="row">
+        <!-- static info -->
+        <div class="col-lg-6 mb-4">
+          <div class="contact-info">
+            <h3>Information About Us</h3>
+            <p class="mb-4">
+              Sagittis posuere id nam quis vestibulum vestibulum a facilisi at elit hendrerit
+              scelerisque sodales nam dis orci.
+            </p>
+            <div class="info-item d-flex align-items-center bg-white mb-3">
+              <div class="info-icon">
+                <i class="fa fa-map-marker"></i>
+              </div>
+              <div class="info-content ps-4">
+                <p class="m-0">445 Mount Eden Road, Mt Eden</p>
+                <p class="m-0">Basundhara Chakrapath</p>
+              </div>
+            </div>
+            <div class="info-item d-flex align-items-center bg-white mb-3">
+              <div class="info-icon">
+                <i class="fa fa-phone"></i>
+              </div>
+              <div class="info-content ps-4">
+                <p class="m-0">977-444-666-888</p>
+                <p class="m-0">977-444-222-000</p>
+              </div>
+            </div>
+            <div class="info-item d-flex align-items-center bg-white mb-3">
+              <div class="info-icon">
+                <i class="fa fa-envelope"></i>
+              </div>
+              <div class="info-content ps-4">
+                <p class="m-0">info@example.com</p>
+                <p class="m-0">support@example.com</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="col-lg-6 mb-4">
+          <div id="contact-form1" class="contact-form">
+            <h3>Keep in Touch</h3>
+            <p class="mb-4">
+              Have a question or suggestion? Send us a message and we’ll get back to you.
+            </p>
+
+            <form method="post" novalidate>
+              {% csrf_token %}
+
+              <div class="form-group mb-2">
+                {{ form.first_name }}
+                {% for error in form.first_name.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="form-group mb-2">
+                {{ form.last_name }}
+                {% for error in form.last_name.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="form-group mb-2">
+                {{ form.email }}
+                {% for error in form.email.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="form-group mb-2">
+                {{ form.phone }}
+                {% for error in form.phone.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="form-group mb-2">
+                {{ form.subject }}
+                {% for error in form.subject.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="textarea mb-2">
+                {{ form.message }}
+                {% for error in form.message.errors %}
+                  <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+              </div>
+
+              <div class="comment-btn">
+                <input type="submit" class="nir-btn" value="Send Message">
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

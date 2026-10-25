@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Post Created{% endblock %}
+
+{% block content %}
+<div class="mt-4">
+  <h2>Post Created Successfully</h2>
+  <p>Your post "<strong>{{ post.title }}</strong>" has been saved.</p>
+
+  <a href="{% url 'blogzone:post_detail' slug=post.slug %}" class="btn btn-primary">
+    View Post
+  </a>
+  <a href="{% url 'blogzone:my_posts' %}" class="btn btn-secondary">
+    Go to My Posts
+  </a>
+</div>
+{% endblock %}

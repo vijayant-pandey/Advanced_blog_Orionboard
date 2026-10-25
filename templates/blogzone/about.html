@@ -1,0 +1,385 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}About Us | Advanced Blog{% endblock %}
+
+{% block content %}
+
+{# ===== Breadcrumb ===== #}
+<section class="breadcrumb-main pb-2 pt-60" style="background-image: url({% static 'images/bg/bg2.jpg' %});">
+    <div class="breadcrumb-outer">
+        <div class="container">
+            <div class="breadcrumb-content d-md-flex align-items-center pt-6">
+                <h2 class="mb-0">About Us</h2>
+                <nav aria-label="breadcrumb" class="ms-md-3 mt-2 mt-md-0">
+                    <ul class="breadcrumb mb-0">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">About Us</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="dot-overlay"></div>
+</section>
+
+{# ===== About main section ===== #}
+<section class="about-us">
+    <div class="container">
+        <div class="about-image-box">
+            <div class="row d-flex align-items-center justify-content-between">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="about-content">
+                        <h4 class="mb-1 theme font-weight-normal">About Advanced Blog</h4>
+                        <h2>We’re dedicated to building a powerful analytics-driven blog platform</h2>
+                        <p class="mb-3">
+                            Advanced Blog is a modern platform for authors, editors, and readers.
+                            It combines production-grade features like RBAC, moderation, analytics, and
+                            a rich writing experience with a beautiful magazine-style UI.
+                        </p>
+                        <p class="mb-3">
+                            With detailed statistics (views, likes, comments, self vs. external views),
+                            authors can understand how their content performs and how far it reaches.
+                        </p>
+
+                        <div class="about-imagelist mt-3">
+                            <ul class="d-flex justify-content-between list-unstyled">
+                                <li class="me-2">
+                                    <img src="{% static 'images/trending/trending1.jpg' %}" alt="" class="img-fluid rounded-2">
+                                </li>
+                                <li class="me-2">
+                                    <img src="{% static 'images/trending/trending5.jpg' %}" alt="" class="img-fluid rounded-2">
+                                </li>
+                                <li class="me-2">
+                                    <img src="{% static 'images/trending/trending6.jpg' %}" alt="" class="img-fluid rounded-2">
+                                </li>
+                                <li>
+                                    <img src="{% static 'images/trending/trending3.jpg' %}" alt="" class="img-fluid rounded-2">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12 mt-4 mt-lg-0">
+                    <div class="about-image">
+                        <img src="{% static 'images/trending/trending14.jpg' %}" alt="" class="img-fluid rounded-3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{# ===== Why choose us section ===== #}
+<section class="about-us1 bg-grey pb-6">
+    <div class="container">
+        <div class="about-image-box">
+            <div class="row d-flex align-items-center justify-content-between">
+                <div class="col-lg-6 col-sm-12">
+                    <div class="about-content">
+                        <h2 class="theme">Why Choose Advanced Blog</h2>
+                        <p class="mb-2">
+                            Whether you are an individual writer, a small publication, or a bigger editorial team,
+                            Advanced Blog gives you tools for:
+                        </p>
+                        <div class="about-featured mb-0">
+                            <ul class="list-unstyled">
+                                <li class="d-block mb-1">* Role-based access control (Admin / Author / Editor / Reader)</li>
+                                <li class="d-block mb-1">* Detailed views, likes, and comments analytics</li>
+                                <li class="d-block mb-1">* Moderated comments with nesting and approval workflow</li>
+                                <li class="d-block mb-1">* Per-post edit tracking and revision-friendly design</li>
+                                <li class="d-block mb-1">* Geo-based reach stats (country/city for views)</li>
+                                <li class="d-block">* API-first design ready for React/mobile apps</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12 mt-4 mt-lg-0">
+                    <div class="about-image-main">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 mt-4 mb-4">
+                                <img src="{% static 'images/new-deal/deal3.jpg' %}" alt="" class="img-fluid rounded-3">
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <img src="{% static 'images/new-deal/deal5.jpg' %}" alt="" class="img-fluid rounded-3">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# --- Why us small feature cards --- #}
+            <div class="why-us pt-4 border-t">
+                <div class="why-us-box">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey p-3 rounded-3">
+                                <div class="why-us-icon mb-2">
+                                    <i class="flaticon-call theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h3><a href="#" class="text-dark text-decoration-none">Advice & Support</a></h3>
+                                    <p class="mb-0 small">
+                                        We aim for a design where authors, readers, and admins all get clear, simple controls and support.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey p-3 rounded-3">
+                                <div class="why-us-icon mb-2">
+                                    <i class="flaticon-global theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h3><a href="#" class="text-dark text-decoration-none">Scalable API</a></h3>
+                                    <p class="mb-0 small">
+                                        REST APIs (DRF + JWT) let you plug in mobile apps or React frontends easily.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey p-3 rounded-3">
+                                <div class="why-us-icon mb-2">
+                                    <i class="flaticon-building theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h3><a href="#" class="text-dark text-decoration-none">Structured Content</a></h3>
+                                    <p class="mb-0 small">
+                                        Category, tags, sections, quotes, and images are handled in a structured way.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-4">
+                            <div class="why-us-item text-center bg-lgrey p-3 rounded-3">
+                                <div class="why-us-icon mb-2">
+                                    <i class="flaticon-location-pin theme"></i>
+                                </div>
+                                <div class="why-us-content">
+                                    <h3><a href="#" class="text-dark text-decoration-none">Analytics-First</a></h3>
+                                    <p class="mb-0 small">
+                                        Author dashboards, per-post stats, and views-per-day endpoints power serious analytics.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {# why us ends #}
+        </div>
+    </div>
+</section>
+
+{# ===== Counter section ===== #}
+
+<section class="counter-main py-6 mb-0" style="background-image: url({% static 'images/bg/bg4.jpg' %});">
+    <div class="container">
+        <div class="counter text-center">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="counter-item bg-lgrey">
+                        <i class="fa fa-users white bg-theme mb-1"></i>
+                        <h3 class="value mb-0 theme">100</h3>
+                        <h4 class="m-0">Happy Authors</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="counter-item bg-lgrey">
+                        <i class="fa fa-plane mb-1 white bg-theme"></i>
+                        <h3 class="value mb-0 theme">50</h3>
+                        <h4 class="m-0">Powerful Features</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="counter-item bg-lgrey">
+                        <i class="fa fa-chart-bar white bg-theme mb-1"></i>
+                        <h3 class="value mb-0 theme">3472</h3>
+                        <h4 class="m-0">Posts Analysed</h4>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="counter-item bg-lgrey">
+                        <i class="fa fa-support white bg-theme mb-1"></i>
+                        <h3 class="value mb-0 theme">523</h3>
+                        <h4 class="m-0">Support Queries</h4>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="overlay"></div>
+</section>
+{# ===== Call-to-action line ===== #}
+<div class="content-line bg-theme pb-6 pt-6">
+    <div class="container">
+        <div class="content-line-inner">
+            <div class="row d-md-flex align-items-center justify-content-between">
+                <div class="col-lg-9 col-md-9">
+                    <p class="mb-0 white h4">
+                        It’s time for a new content adventure. Don’t wait – start writing or exploring posts today!
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-3 mt-3 mt-md-0 text-md-end">
+                    <a href="{% url 'blogzone:post_list' %}" class="nir-btn-black">Browse Posts</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br/>
+
+{# ===== Testimonials ===== #}
+<section class="testimonial pb-6">
+    <div class="container">
+        <div class="section-title mb-4 pb-1 w-50">
+            <h2 class="m-0">What <span>People Say About Us</span></h2>
+        </div>
+        <div class="row review-slider">
+
+            <div class="col-sm-4 item">
+                <div class="testimonial-item1 text-center">
+                    <div class="details">
+                        <p class="m-0">
+                            “Advanced Blog gave us visibility into which articles actually perform.
+                            The author dashboard and analytics are game changers for our team.”
+                        </p>
+                    </div>
+                    <div class="author-info mt-2">
+                        <img src="{% static 'images/testimonial/img1.jpg' %}" alt="" class="testimonial-avatar">
+
+                        <div class="author-title">
+                            <h4 class="m-0 theme">Jared Erondu</h4>
+                            <span>Supervisor</span>
+                        </div>
+                    </div>
+                    <i class="fa fa-quote-left mb-2"></i>
+                </div>
+            </div>
+
+            <div class="col-sm-4 item">
+                <div class="testimonial-item1 text-center">
+                    <div class="details">
+                        <p class="m-0">
+                            “The RBAC and moderation tools let us safely onboard new authors while maintaining quality and control.”
+                            let us safely onboard new authors 
+                        </p>
+                    </div>
+                    <div class="author-info mt-2">
+                        <img src="{% static 'images/testimonial/img2.jpg' %}" alt="" class="testimonial-avatar">
+                        <div class="author-title">
+                            <h4 class="m-0 theme">Cadic Vegeta</h4>
+                            <span>Senior Editor</span>
+                        </div>
+                    </div>
+                    <i class="fa fa-quote-left mb-2"></i>
+                </div>
+            </div>
+
+            <div class="col-sm-4 item">
+                <div class="testimonial-item1 text-center">
+                    <div class="details">
+                        <p class="m-0">
+                            “The API-first design means we can reuse the same backend for web, mobile and future React dashboards.”
+                        </p>
+                    </div>
+                    <div class="author-info mt-2">
+                        <img src="{% static 'images/testimonial/img3.jpg' %}" alt="" class="testimonial-avatar">
+                        <div class="author-title">
+                            <h4 class="m-0 theme">Jonathan Beri</h4>
+                            <span>Engineering Lead</span>
+                        </div>
+                    </div>
+                    <i class="fa fa-quote-left mb-2"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{# ===== Our team section ===== #}
+<section class="our-team py-6 mb-0">
+    <div class="container">
+        <div class="section-title mb-4 pb-1 w-50">
+            <h2 class="m-0">Our <span>Team &amp; Guides</span></h2>
+        </div>
+        <div class="team-main">
+            <div class="row shop-slider">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="team-list">
+                        <div class="team-image">
+                            <img src="{% static 'images/team/img1.jpg' %}" alt="team" class="img-fluid">
+                        </div>
+                        <div class="team-content text-center p-3 bg-theme">
+                            <h4 class="mb-0 white">Salmon Thuir</h4>
+                            <p class="mb-0 white small">Chief Officer</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="team-list">
+                        <div class="team-image">
+                            <img src="{% static 'images/team/img2.jpg' %}" alt="team" class="img-fluid">
+                        </div>
+                        <div class="team-content text-center p-3 bg-theme">
+                            <h4 class="mb-0 white">Horke Pels</h4>
+                            <p class="mb-0 white small">Head Chef</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="team-list">
+                        <div class="team-image">
+                            <img src="{% static 'images/team/img4.jpg' %}" alt="team" class="img-fluid">
+                        </div>
+                        <div class="team-content text-center p-3 bg-theme">
+                            <h4 class="mb-0 white">Solden Kalos</h4>
+                            <p class="mb-0 white small">Supervisor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="team-list">
+                        <div class="team-image">
+                            <img src="{% static 'images/team/img3.jpg' %}" alt="team" class="img-fluid">
+                        </div>
+                        <div class="team-content text-center p-3 bg-theme">
+                            <h4 class="mb-0 white">Nelson Bam</h4>
+                            <p class="mb-0 white small">Quality Assurance</p>
+                        </div>
+                    </div>
+                </div>
+
+                {# extra member #}
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                    <div class="team-list">
+                        <div class="team-image">
+                            <img src="{% static 'images/team/img5.jpg' %}" alt="team" class="img-fluid">
+                        </div>
+                        <div class="team-content text-center p-3 bg-theme">
+                            <h4 class="mb-0 white">Cacics Coold</h4>
+                            <p class="mb-0 white small">Asst. Chef</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

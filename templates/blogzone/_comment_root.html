@@ -1,0 +1,58 @@
+
+{# templates/blogzone/_comment_root.html #}
+{% load static %}
+
+<div class="comment-box mb-3 clearfix" data-comment-id="{{ comment.id }}">
+  <div class="d-flex">
+
+    <!-- Avatar -->
+    <div class="comment-image mt-2 me-3">
+      <img src="{% static 'images/reviewer/1.jpg' %}" alt="avatar">
+    </div>
+
+    <!-- Main content --> 
+    <!-- text + replies -->
+    <div class="comment-content flex-grow-1">
+
+      <!-- Name + date -->
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <h4 class="mb-0 me-5">
+          {{ comment.user.get_full_name|default:comment.user.username }}
+        </h4>
+        <small class="text-muted comment-date mb-0">
+          {{ comment.created_at|date:"M d, Y H:i" }}
+        </small>
+      </div>
+
+      <!-- Comment text -->
+      <p class="comment mb-1 mt-1">
+        {{ comment.content|linebreaks }}
+      </p>
+
+      <!-- Reply button -->
+      {% if user.is_authenticated %}
+        <a href="#comment-form"
+           class="nir-btn btn-sm reply-link mt-1"
+           data-comment-id="{{ comment.id }}"
+           data-username="{{ comment.user.get_full_name|default:comment.user.username }}">
+          Reply
+        </a>
+      {% endif %}
+
+      {# existing replies for this comment (when rendered in the full page) #}
+      {# Replies (approved only) #}
+      {% with replies=comment.replies.all %}
+        {% if replies %}
+          <div class="comment-replies mt-3 ms-4">
+            {% for reply in replies %}
+              {% if reply.status == 'approved' %}
+                {% include "blogzone/_comment_reply.html" with reply=reply user=user %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+    </div>
+  </div>
+</div>

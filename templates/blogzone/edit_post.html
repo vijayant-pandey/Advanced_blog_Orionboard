@@ -1,0 +1,174 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Edit Post - {{ post.title }}{% endblock %}
+
+{% block content %}
+<h2 class="my-4">Edit Post: {{ post.title }}</h2>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+
+  <!-- Category -->
+  <div class="mb-3">
+    <label class="form-label">Category</label>
+    {{ form.category }}
+  </div>
+
+  <!-- Title -->
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    {{ form.title }}
+  </div>
+
+  <!-- Highlight Quote (same style as create_post) -->
+  <div class="mb-3">
+    <label class="form-label d-block">Highlight Quote (optional)</label>
+    <div class="blog-quote mb-2">
+      {{ form.quote }}
+      <i class="fas fa-quote-left"></i>
+    </div>
+    <small class="text-muted">
+      This quote will be shown as a highlighted block inside the post detail page.
+    </small>
+  </div>
+
+  <!-- Main Content -->
+  <div class="mb-3">
+    <label class="form-label">Main Content</label>
+    {{ form.content }}
+  </div>
+
+  <hr>
+
+  <!-- Sections -->
+  <h4>Additional Sections (Heading + Content + Optional Image)</h4>
+  <p class="text-muted">
+    You can add multiple sections. Only sections with content will be shown.
+  </p>
+
+  <div id="sections-container">
+    {% if sections %}
+      {# Existing sections from DB #}
+      {% for section in sections %}
+        <div class="section-block border rounded p-3 mb-3">
+          <div class="mb-2">
+            <label class="form-label">Section Heading (optional)</label>
+            <input type="text"
+                   name="section_heading[]"
+                   class="form-control"
+                   value="{{ section.heading }}">
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Section Content</label>
+            <textarea name="section_content[]" class="form-control" rows="3">{{ section.content }}</textarea>
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Section Image (optional)</label>
+            {% if section.image %}
+              <div class="mb-2">
+                <img src="{{ section.image.url }}" alt="Section image" class="img-fluid mb-1" style="max-height:150px;">
+                <div class="text-muted small">Uploading a new image will replace this.</div>
+              </div>
+            {% endif %}
+            <input type="file" name="section_image[]" class="form-control">
+          </div>
+          <button type="button" class="btn btn-sm btn-danger" onclick="removeSection(this)">
+            Delete Section
+          </button>
+        </div>
+      {% endfor %}
+    {% else %}
+      {# No existing sections -> show one empty block #}
+      <div class="section-block border rounded p-3 mb-3">
+        <div class="mb-2">
+          <label class="form-label">Section Heading (optional)</label>
+          <input type="text" name="section_heading[]" class="form-control">
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Section Content</label>
+          <textarea name="section_content[]" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-2">
+          <label class="form-label">Section Image (optional)</label>
+          <input type="file" name="section_image[]" class="form-control">
+        </div>
+        <button type="button" class="btn btn-sm btn-danger" onclick="removeSection(this)">
+          Delete Section
+        </button>
+      </div>
+    {% endif %}
+  </div>
+
+  <button type="button" class="btn btn-sm btn-outline-secondary mb-3" onclick="addSection()">
+    Add Heading & Content
+  </button>
+
+  <hr>
+
+  <!-- Cover Image -->
+  <div class="mb-3">
+    <label class="form-label">Cover Image (optional)</label><br>
+    {% if post.cover_image %}
+      <img src="{{ post.cover_image.url }}" class="img-fluid mb-2" style="max-height:200px;" alt="Current cover">
+      <div class="text-muted small">Uploading a new image will replace this.</div>
+    {% endif %}
+    {{ form.cover_image }}
+  </div>
+
+  <!-- Status -->
+  <div class="mb-3">
+    <label class="form-label">Status</label>
+    {{ form.status }}
+    <div class="form-text">
+      Draft = save as draft. Submit for approval = send to admin for review.
+      {% if user.is_staff %}
+        You can also keep/publish directly as "Published".
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Tags -->
+  <div class="mb-3">
+    <label class="form-label">Tags (comma separated)</label>
+    {{ form.tags_input }}
+  </div>
+
+  <button type="submit" class="btn btn-primary">Save Changes</button>
+  <a href="{% url 'blogzone:my_posts' %}" class="btn btn-secondary">Cancel</a>
+</form>
+
+<script>
+  function addSection() {
+    const container = document.getElementById("sections-container");
+    const first = container.querySelector(".section-block");
+    const clone = first.cloneNode(true);
+
+    // clear values
+    clone.querySelectorAll("input, textarea").forEach(el => {
+      if (el.type === "file") {
+        el.value = null;
+      } else {
+        el.value = "";
+      }
+    });
+
+    // remove any preview image in the clone
+    const imgs = clone.querySelectorAll("img");
+    imgs.forEach(img => img.remove());
+    const hints = clone.querySelectorAll(".text-muted.small");
+    hints.forEach(h => h.remove());
+
+    container.appendChild(clone);
+  }
+
+  function removeSection(button) {
+    const container = document.getElementById("sections-container");
+    const blocks = container.querySelectorAll(".section-block");
+    if (blocks.length > 1) {
+      button.closest(".section-block").remove();
+    }
+  }
+</script>
+{% endblock %}

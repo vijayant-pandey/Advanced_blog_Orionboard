@@ -1,0 +1,36 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}Page Not Found | Advanced Blog{% endblock %}
+
+{% block content %}
+<section class="error overflow-hidden py-5">
+  <div class="container">
+    <div class="error-content text-center">
+      <h3 class="mb-3">Oops! Page not found</h3>
+
+      <img src="{% static 'images/404.svg' %}" alt="404" class="mb-4 img-fluid" style="max-width: 320px;">
+
+      <h2 class="mb-3 navy">
+        We are sorry, but the page you requested was not found.
+      </h2>
+
+      <p class="mb-4 text-muted">
+        The link might be broken or the page may have been removed.
+      </p>
+
+      <div class="newsletter-form w-75 mx-auto mt-3">
+        <form method="get" action="{% url 'blogzone:search' %}">
+          <input type="text" name="q" placeholder="Search articles, topics, authors…">
+          <input type="submit" class="nir-btn bordernone" value="Search">
+        </form>
+      </div>
+
+      <div class="error-btn mt-4">
+        <a href="{% url 'home' %}" class="nir-btn me-2">Go to Homepage</a>
+        <a href="{% url 'blogzone:post_list' %}" class="nir-btn nir-btn-black">Browse Blog</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

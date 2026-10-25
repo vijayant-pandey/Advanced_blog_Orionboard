@@ -1,0 +1,122 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}Contact - Advanced Blog{% endblock %}
+
+{% block content %}
+
+<!-- optional: show success message -->
+{% if success %}
+<div class="alert alert-success" role="alert">
+    Thank you! Your message has been sent.
+</div>
+{% endif %}
+
+<section class="contact-main pt-0 pb-5 contact1 bg-grey">
+    <div class="map mb-4">
+        <div style="width: 100%">
+            <iframe height="400"
+                    style="border:0; width:100%;"
+                    src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=(mangal%20bazar)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
+                    loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="contact-info">
+            <div class="row">
+                <!-- LEFT: info -->
+                <div class="col-lg-6 mb-4">
+                    <div class="contact-info">
+                        <h3>Information About Us</h3>
+                        <p class="mb-4">
+                            Sagittis posuere id nam quis vestibulum vestibulum a facilisi at elit hendrerit scelerisque sodales nam dis orci.
+                        </p>
+
+                        <div class="info-item d-flex align-items-center bg-white mb-3 p-3">
+                            <div class="info-icon">
+                                <i class="fa fa-map-marker"></i>
+                            </div>
+                            <div class="info-content ps-4">
+                                <p class="m-0">445 Mount Eden Road, Mt Eden</p>
+                                <p class="m-0">Basundhara Chakrapath</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item d-flex align-items-center bg-white mb-3 p-3">
+                            <div class="info-icon">
+                                <i class="fa fa-phone"></i>
+                            </div>
+                            <div class="info-content ps-4">
+                                <p class="m-0">977-444-666-888</p>
+                                <p class="m-0">977-444-222-000</p>
+                            </div>
+                        </div>
+
+                        <div class="info-item d-flex align-items-center bg-white mb-3 p-3">
+                            <div class="info-icon">
+                                <i class="fa fa-envelope"></i>
+                            </div>
+                            <div class="info-content ps-4">
+                                <p class="m-0">info@example.com</p>
+                                <p class="m-0">support@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RIGHT: contact form -->
+                <div class="col-lg-6 mb-4">
+                    <div id="contact-form1" class="contact-form">
+                        <h3>Keep in Touch</h3>
+                        <p class="mb-4">
+                            Fundpress site thoughtfully designed for real humans which means the best user experience for your community.
+                        </p>
+
+                        <!-- show form errors -->
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+                        <form method="post" action="{% url 'blogzone:contact' %}" name="contactform" id="contactform">
+                            {% csrf_token %}
+
+                            <div class="form-group mb-2">
+                                {{ form.first_name.errors }}
+                                {{ form.first_name }}
+                            </div>
+
+                            <div class="form-group mb-2">
+                                {{ form.last_name.errors }}
+                                {{ form.last_name }}
+                            </div>
+
+                            <div class="form-group mb-2">
+                                {{ form.email.errors }}
+                                {{ form.email }}
+                            </div>
+
+                            <div class="form-group mb-2">
+                                {{ form.phone.errors }}
+                                {{ form.phone }}
+                            </div>
+
+                            <div class="textarea mb-2">
+                                {{ form.message.errors }}
+                                {{ form.message }}
+                            </div>
+
+                            <div class="comment-btn">
+                                <button type="submit" class="nir-btn">Send Message</button>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- col -->
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

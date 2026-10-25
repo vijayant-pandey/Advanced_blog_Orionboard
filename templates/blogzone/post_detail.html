@@ -1,0 +1,520 @@
+{# templates/blogzone/post_detail.html #}
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }} | Advanced Blog{% endblock %}
+
+{% block content %}
+
+{# ===== Hero / Cover section ===== #}
+<div class="page-cover pt-4">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left: title & meta -->
+      <div class="col-lg-6 mb-4">
+        <div class="cover-content">
+          <div class="author-detail mb-2">
+
+            {% if post.category %}
+            <a href="{% url 'blogzone:search' %}?q={{ post.category.name|urlencode }}"
+            class="tag white bg-theme py-1 px-3 me-2">
+            #{{ post.category.name }}
+            </a>
+            {% endif %}
+            
+            <a href="#" class="tag white bg-navy py-1 px-3">
+              <i class="fa fa-eye"></i> {{ post.view_count }} views
+            </a>
+          </div>
+
+          <h1 class="mb-2">{{ post.title }}</h1>
+
+          <div class="author-detail d-flex align-items-center flex-wrap">
+            {% if post.published_at %}
+            <span class="me-3 mb-1">
+              <i class="fa fa-clock"></i> Posted on: {{ post.published_at|date:"M d, Y" }}
+            </span>
+            {% endif %}
+
+            <span class="me-3 mb-1">
+              <i class="fa fa-user"></i> {{ post.author.get_full_name|default:post.author.username }}
+            </span>
+
+            <span class="me-3 mb-1">
+              <i class="fa fa-thumbs-up"></i> {{ likes_count }} likes
+            </span>
+            
+            <span class="mb-1">
+              <i class="fa fa-comments"></i> {{ comments_count }} comments
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: cover image -->
+      <div class="col-lg-6 mb-4">
+        <div class="box-shadow p-3 position-relative">
+          {% if post.cover_image %}
+          <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="w-100">
+          {% else %}
+          <img src="{% static 'images/trending/trending6.jpg' %}" alt="{{ post.title }}" class="w-100">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hero Ends -->
+
+<!-- ===== Blog detail main layout ===== -->
+<section class="blog blog-left pt-4">
+  <div class="container">
+    <div class="row">
+      <!-- Main content -->
+      <div class="col-lg-8 col-md-12 col-sm-12">
+        <div class="blog-single">
+
+          <!-- Highlight bar (date + title) -->
+          <div class="blog-single-in align-items-center d-md-flex bg-navy mb-3">
+            <div class="blog-date w-25 me-4">
+              <div class="date text-center bg-theme p-2">
+                {% if post.published_at %}
+                  <h1 class="day mb-0 white">{{ post.published_at|date:"d" }}</h1>
+                  <div class="month white">{{ post.published_at|date:"M" }}</div>
+                {% else %}
+                  <h1 class="day mb-0 white">--</h1>
+                  <div class="month white">---</div>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="blog-single-in-cont w-75">
+              <div class="blog-content">
+                <h3 class="blog-title mb-0">
+                  <a href="#" class="white">{{ post.title }}</a>
+                </h3>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="blog-wrapper">
+            <div class="blog-content">
+
+              {% if post.quote %}
+              <!-- blog blockquote -->
+                <div class="blog-quote mb-4">
+                  <p class="white">“{{ post.quote }}”</p>
+                  <span class="white">
+                    By {{ post.author.get_full_name|default:post.author.username }}
+                  </span>
+                  <i class="fas fa-quote-left"></i>
+                </div>
+              {% endif %}
+
+
+              {# Main body content #}
+              <div class="blog-imagelist mb-3">
+                {% if post.cover_image %}
+                  <img src="{{ post.cover_image.url }}" alt="{{ post.title }}" class="img-fluid">
+                {% else %}
+                  <img src="{% static 'images/bg/bg3.jpg' %}" alt="{{ post.title }}" class="img-fluid">
+                {% endif %}
+              </div>
+
+              <p class="mb-3">
+                {{ post.content|linebreaks }}
+              </p>
+
+              {# Optional sections, if you’re using PostSection model #}
+              {% if post.sections.all %}
+                {% for section in post.sections.all %}
+                  {% if section.heading or section.content or section.image %}
+                    <hr>
+                    {% if section.heading %}
+                      <h4>{{ section.heading }}</h4>
+                    {% endif %}
+                    {% if section.content %}
+                      <p class="mb-3">{{ section.content|linebreaks }}</p>
+                    {% endif %}
+                    {% if section.image %}
+                      <div class="blog-imagelist mb-3">
+                        <img src="{{ section.image.url }}" alt="{{ section.heading }}" class="img-fluid">
+                      </div>
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <!-- Stats + share -->
+            <div class="blog-share d-flex justify-content-between align-items-center mb-4 bg-lgrey border p-2">
+              <div>
+                <small>
+                  <strong>Views:</strong> {{ post.view_count }} &nbsp;|&nbsp;
+                  <strong>Likes:</strong> {{ likes_count }} &nbsp;|&nbsp;
+                  <strong>Comments:</strong> {{ comments_count }} &nbsp;|&nbsp;
+                  <strong>Edit Count:</strong> {{ post.edit_count }}
+                </small>
+              </div>
+              <div class="header-social">
+                <ul>
+                  <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                  <li><a href="#"><i class="fab fa-twitter"></i></a></li>  {# ✅ FA5-compatible icon #}
+                  <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                  <li><a href="#"><i class="fab fa-whatsapp"></i></a></li>
+                </ul>
+              </div>
+            </div>
+
+
+            <!-- Like button -->
+            <div class="mb-3">
+              {% if user.is_authenticated %}
+                <form method="post" action="{% url 'blogzone:toggle_like' slug=post.slug %}">
+                  {% csrf_token %}
+                  {% if has_liked %}
+                    <button type="submit" class="btn btn-outline-danger">Unlike</button>
+                  {% else %}
+                    <button type="submit" class="btn btn-outline-primary">Like</button>
+                  {% endif %}
+                </form>
+              {% else %}
+                <p>
+                  <a href="{% url 'login' %}?next={% url 'blogzone:post_detail' slug=post.slug %}">
+                    Login to like this post
+                  </a>
+                </p>
+              {% endif %}
+            </div>
+
+          </div>  {# .blog-wrapper #}
+
+
+          <!-- ===== Comments list ===== -->
+        <div class="single-comments single-box mb-4 mt-4">
+          <h4 class="mb-4">
+            {{ comments_count }} Comment{{ comments_count|pluralize }}
+          </h4>
+
+          {% if root_comments %}
+            <div id="comments-list">
+              {% for comment in root_comments %}
+                {% include "blogzone/_comment_root.html" with comment=comment %}
+              {% endfor %}
+            </div>
+          {% else %}
+            <p id="comments-empty">No comments yet. Be the first to comment!</p>
+            <div id="comments-list"></div>
+          {% endif %}
+        </div>
+
+
+
+          
+          <!-- ===== Add Comment Form/ Reply form ===== -->
+          <section class="mt-4">
+            <h4>Add a Comment</h4>
+
+            {% if user.is_authenticated %}
+              <form method="post"
+                    id="comment-form"
+                    data-ajax-url="{% url 'blogzone:ajax_comment' slug=post.slug %}">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+
+                <input type="hidden" name="parent_id" id="parent-id-field">
+
+                <div class="mb-3">
+                  {{ form.content.label_tag }}
+                  {{ form.content }}
+                  {% for error in form.content.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                  {% endfor %}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <p class="text-muted mt-2 mb-0" id="comment-help-text">
+                  Your comment will be visible after approval by an admin/editor.
+                </p>
+                <div class="mt-2" id="comment-form-message"></div>
+              </form>
+            {% else %}
+              <p>
+                <a href="{% url 'login' %}?next={% url 'blogzone:post_detail' slug=post.slug %}">
+                  Login to add a comment
+                </a>
+              </p>
+            {% endif %}
+          </section>
+
+
+
+          <!-- Analytics link (staff only) -->
+          {% if user.is_staff %}
+            <a class="btn btn-outline-info mt-3 mb-3"
+               href="{% url 'blogzone:post_views_timeseries' slug=post.slug %}">
+              View analytics (views over time)
+            </a>
+          {% endif %}
+
+          <a class="btn btn-secondary" href="{% url 'blogzone:post_list' %}">
+            Back to all posts
+          </a>
+
+        </div>
+      </div>
+
+      <!-- ===== Sidebar ===== -->
+      {# SIDEBAR ===== #}
+      <div class="col-lg-4 col-md-12">
+        <div class="sidebar-sticky">
+          <div class="list-sidebar">
+
+            
+            {# Example static sidebar banner #}
+            <!-- <div class="mag-image mb-3 position-relative">
+              <img src="{% static 'images/trending/trending10.jpg' %}" alt="Image">
+            </div> -->
+
+            {# Sidebar video block #}
+<!-- {% if sidebar_video and sidebar_video.get_embed_url %}
+  <div class="mag-image mb-3 position-relative">
+    <div class="ratio ratio-16x9">
+      <iframe
+        src="{{ sidebar_video.get_embed_url }}"
+        title="{{ sidebar_video.title }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+{% else %}
+  <div class="mag-image mb-3 position-relative">
+    <img src="{% static 'images/trending/trending10.jpg' %}" alt="Image">
+  </div>
+{% endif %} -->
+
+
+{% if sidebar_video and sidebar_video.youtube_id %}
+  <div class="mag-image mb-3 position-relative">
+
+    {# Clickable area -> opens YouTube in new tab #}
+    <a href="{{ sidebar_video.youtube_watch_url }}"
+       target="_blank"
+       rel="noopener"
+       class="d-block position-relative">
+
+      {# YouTube thumbnail #}
+      <img src="{{ sidebar_video.thumbnail_url }}"
+           alt="{{ sidebar_video.title }}"
+           class="w-100">
+
+      {# Your play button overlay, same style as you showed #}
+      <div class="video-button text-center">
+        <div class="call-button text-center">
+          <span class="play-btn js-video-button">
+            <i class="fa fa-play bg-blue"></i>
+          </span>
+        </div>
+        <div class="video-figure"></div>
+      </div>
+    </a>
+  </div>
+  {% else %}
+  <div class="mag-image mb-3 position-relative">
+    <img src="{% static 'images/trending/trending10.jpg' %}" alt="Image">
+  </div>
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+            {# Popular / Recent tabs — using your popular_posts + latest_posts if you add it #}
+            <div class="popular-post sidebar-item mb-4">
+              <div class="sidebar-tabs">
+                <div class="post-tabs">
+                  <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active"
+                              id="popular-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#popular"
+                              type="button"
+                              role="tab"
+                              aria-controls="popular"
+                              aria-selected="true">
+                        Popular
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link"
+                              id="recent-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#recent"
+                              type="button"
+                              role="tab"
+                              aria-controls="recent"
+                              aria-selected="false">
+                        Recent
+                      </button>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content" id="postsTabContent">
+                    {# Popular posts tab #}
+                    <div class="tab-pane fade show active"
+                         id="popular"
+                         role="tabpanel"
+                         aria-labelledby="popular-tab">
+                      {% if popular_posts %}
+                        {% for p in popular_posts %}
+                          <article class="post mb-3 border-bottom pb-3">
+                            <div class="s-content d-flex align-items-center justify-space-between">
+                              <div class="sidebar-image w-25 me-3">
+                                <a href="{% url 'blogzone:post_detail' slug=p.slug %}">
+                                  {% if p.cover_image %}
+                                    <img src="{{ p.cover_image.url }}" alt="{{ p.title }}" class="img-fluid">
+                                  {% else %}
+                                    <img src="{% static 'images/trending/trending1.jpg' %}" alt="{{ p.title }}" class="img-fluid">
+                                  {% endif %}
+                                </a>
+                              </div>
+                              <div class="content-list w-75">
+                                <h5 class="mb-1 small">
+                                  <a href="{% url 'blogzone:post_detail' slug=p.slug %}" class="text-dark text-decoration-none">
+                                    {{ p.title|truncatewords:10 }}
+                                  </a>
+                                </h5>
+                                {% if p.published_at %}
+                                  <div class="date small text-muted">
+                                    {{ p.published_at|date:"d M Y" }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </article>
+                        {% endfor %}
+                      {% else %}
+                        <p class="small text-muted mt-2 mb-0">No popular posts yet.</p>
+                      {% endif %}
+                    </div>
+
+                    {# Recent posts tab – just reuse posts or add a recent_posts queryset later #}
+                    <div class="tab-pane fade"
+                         id="recent"
+                         role="tabpanel"
+                         aria-labelledby="recent-tab">
+                      {% if posts %}
+                        {% for p in posts|slice:":3" %}
+                          <article class="post mb-3 border-bottom pb-3">
+                            <div class="s-content d-flex align-items-center justify-space-between">
+                              <div class="sidebar-image w-25 me-3">
+                                <a href="{% url 'blogzone:post_detail' slug=p.slug %}">
+                                  {% if p.cover_image %}
+                                    <img src="{{ p.cover_image.url }}" alt="{{ p.title }}" class="img-fluid">
+                                  {% else %}
+                                    <img src="{% static 'images/trending/trending2.jpg' %}" alt="{{ p.title }}" class="img-fluid">
+                                  {% endif %}
+                                </a>
+                              </div>
+                              <div class="content-list w-75">
+                                <h5 class="mb-1 small">
+                                  <a href="{% url 'blogzone:post_detail' slug=p.slug %}" class="text-dark text-decoration-none">
+                                    {{ p.title|truncatewords:10 }}
+                                  </a>
+                                </h5>
+                                {% if p.published_at %}
+                                  <div class="date small text-muted">
+                                    {{ p.published_at|date:"d M Y" }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </article>
+                        {% endfor %}
+                      {% else %}
+                        <p class="small text-muted mt-2 mb-0">No recent posts yet.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {# Simple tags block (optional if you have tags) #}
+            <div class="sidebar-item mb-4">
+              <h4>Tags</h4>
+              <ul class="sidebar-tags list-unstyled d-flex flex-wrap">
+                {% if popular_tags %}
+                  {% for tag in popular_tags %}
+                    <li class="me-2 mb-2">
+                      <a href="{% url 'blogzone:search' %}?q={{ tag.name|urlencode }}">
+                        {{ tag.name }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li><span class="text-muted small">No tags yet.</span></li>
+                {% endif %}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+  (function () {
+    const replyLinks = document.querySelectorAll(".reply-link");
+    const parentField = document.getElementById("parent-id-field");
+    const form = document.getElementById("comment-form");
+    const textarea = form ? form.querySelector("textarea") : null;
+
+    if (!replyLinks || !parentField || !form || !textarea) return;
+
+    replyLinks.forEach(link => {
+      link.addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const commentId = this.getAttribute("data-comment-id");
+        const username = this.getAttribute("data-username") || "";
+
+        parentField.value = commentId;          // set parent_id for backend
+        textarea.focus();
+
+        // Optional: prefill @mention like FB
+        if (username) {
+          // only add @ if textarea is empty
+          if (!textarea.value.trim()) {
+            textarea.value = "@" + username + " ";
+          }
+        }
+
+        // scroll to form
+        form.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    });
+  })();
+</script>
+
+
+
+
+
+
+{% endblock %}

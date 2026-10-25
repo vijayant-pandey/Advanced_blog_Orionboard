@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}My Posts{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center my-4">
+  <h2>My Posts</h2>
+  <a href="{% url 'blogzone:create_post' %}" class="btn btn-success">Create New Post</a>
+</div>
+
+{% if posts %}
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Status</th>
+        <th>Views</th>
+        <th>Edit Count</th>
+        <th>Created</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {% for post in posts %}
+      <tr>
+        <td>{{ post.title }}</td>
+        <td>{{ post.status }}</td>
+        <td>{{ post.view_count }}</td>
+        <td>{{ post.edit_count }}</td>
+        <td>{{ post.created_at }}</td>
+        <td>
+            <a href="{% url 'blogzone:edit_post' slug=post.slug %}" class="btn btn-sm btn-outline-primary">Edit</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+
+
+  </table>
+{% else %}
+  <div class="alert alert-info">You have not written any posts yet.</div>
+{% endif %}
+{% endblock %}

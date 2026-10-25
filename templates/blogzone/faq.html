@@ -1,0 +1,103 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}FAQ | Advanced Blog{% endblock %}
+
+{% block extra_head %}
+<style>
+  /* red-ish FAQ highlight similar to original theme */
+  .faq-accordion .accordion-button {
+    font-weight: 600;
+    border-left: 3px solid #f4153a;  /* red border */
+  }
+  .faq-accordion .accordion-button:not(.collapsed) {
+    background-color: #ffe6ea;       /* light red background when open */
+    color: #c1121f;
+    box-shadow: none;
+  }
+  .faq-accordion .accordion-button:focus {
+    box-shadow: none;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="faq-main pb-6 pt-4">
+  <div class="container">
+    <div class="text-center mb-4">
+      <h2 class="mb-2">Frequently Asked <span class="theme">Questions</span></h2>
+      <p class="text-muted mb-0">Find quick answers to common questions about this blog.</p>
+    </div>
+
+    <div class="row">
+      <!-- LEFT column -->
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="accordion faq-accordion" id="faqLeft">
+          {% for item in faqs_left %}
+            <div class="accordion-item mb-2">
+              <h2 class="accordion-header" id="leftHeading{{ forloop.counter }}">
+                <button
+                  class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#leftCollapse{{ forloop.counter }}"
+                  aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                  aria-controls="leftCollapse{{ forloop.counter }}"
+                >
+                  {{ item.question }}
+                </button>
+              </h2>
+              <div
+                id="leftCollapse{{ forloop.counter }}"
+                class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                aria-labelledby="leftHeading{{ forloop.counter }}"
+                data-bs-parent="#faqLeft"
+              >
+                <div class="accordion-body">
+                  {{ item.answer|linebreaks }}
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="text-muted">No FAQs added yet. Go to the admin and create some FaqItem entries.</p>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- RIGHT column -->
+      <div class="col-lg-6 col-md-12 mb-4">
+        <div class="accordion faq-accordion" id="faqRight">
+          {% for item in faqs_right %}
+            <div class="accordion-item mb-2">
+              <h2 class="accordion-header" id="rightHeading{{ forloop.counter }}">
+                <button
+                  class="accordion-button {% if not forloop.first %}collapsed{% endif %}"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#rightCollapse{{ forloop.counter }}"
+                  aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                  aria-controls="rightCollapse{{ forloop.counter }}"
+                >
+                  {{ item.question }}
+                </button>
+              </h2>
+              <div
+                id="rightCollapse{{ forloop.counter }}"
+                class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                aria-labelledby="rightHeading{{ forloop.counter }}"
+                data-bs-parent="#faqRight"
+              >
+                <div class="accordion-body">
+                  {{ item.answer|linebreaks }}
+                </div>
+              </div>
+            </div>
+          {% empty %}
+            <p class="text-muted">No FAQs added yet.</p>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

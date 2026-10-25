@@ -1,0 +1,278 @@
+📦advanced_blog
+ ┣ 📂accounts
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┣ 📜admin.py
+ ┃ ┣ 📜apps.py
+ ┃ ┣ 📜models.py
+ ┃ ┣ 📜tests.py
+ ┃ ┣ 📜views.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂blogzone
+ ┃ ┣ 📂api
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┣ 📜serializers.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜views.cpython-313.pyc
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┃ ┣ 📜serializers.py
+ ┃ ┃ ┣ 📜views.py
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂migrations
+ ┃ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┃ ┣ 📜0001_initial.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0002_like.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0003_comment.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0004_post_view_count.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0005_viewevent.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0006_post_edit_count.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0007_viewevent_city_viewevent_country.cpython-313.pyc
+ ┃ ┃ ┃ ┣ 📜0008_category_tag_post_quote_alter_post_status_and_more.cpython-313.pyc
+ ┃ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┃ ┣ 📜0001_initial.py
+ ┃ ┃ ┣ 📜0002_like.py
+ ┃ ┃ ┣ 📜0003_comment.py
+ ┃ ┃ ┣ 📜0004_post_view_count.py
+ ┃ ┃ ┣ 📜0005_viewevent.py
+ ┃ ┃ ┣ 📜0006_post_edit_count.py
+ ┃ ┃ ┣ 📜0007_viewevent_city_viewevent_country.py
+ ┃ ┃ ┣ 📜0008_category_tag_post_quote_alter_post_status_and_more.py
+ ┃ ┃ ┗ 📜__init__.py
+ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┣ 📜urls.cpython-313.pyc
+ ┃ ┃ ┣ 📜views.cpython-313.pyc
+ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┣ 📜admin.py
+ ┃ ┣ 📜api_urls.py
+ ┃ ┣ 📜apps.py
+ ┃ ┣ 📜context_processors.py
+ ┃ ┣ 📜forms.py
+ ┃ ┣ 📜models.py
+ ┃ ┣ 📜tests.py
+ ┃ ┣ 📜urls.py
+ ┃ ┣ 📜views.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂media
+ ┃ ┣ 📂post_covers
+ ┃ ┃ ┣ 📜dark-nepali-keyboard-hr.jpg
+ ┃ ┃ ┣ 📜ddddd.png
+ ┃ ┃ ┣ 📜file.jpg
+ ┃ ┃ ┣ 📜MVC2.jpg
+ ┃ ┃ ┗ 📜om.png
+ ┃ ┗ 📂post_sections
+ ┃ ┃ ┣ 📜BAnk_Passbook.jpg
+ ┃ ┃ ┗ 📜signature.jpg
+ ┣ 📂orionboard
+ ┃ ┣ 📂__pycache__
+ ┃ ┃ ┣ 📜settings.cpython-313.pyc
+ ┃ ┃ ┣ 📜urls.cpython-313.pyc
+ ┃ ┃ ┣ 📜wsgi.cpython-313.pyc
+ ┃ ┃ ┗ 📜__init__.cpython-313.pyc
+ ┃ ┣ 📜asgi.py
+ ┃ ┣ 📜settings.py
+ ┃ ┣ 📜urls.py
+ ┃ ┣ 📜wsgi.py
+ ┃ ┗ 📜__init__.py
+ ┣ 📂static
+ ┃ ┣ 📂css
+ ┃ ┃ ┣ 📜bootstrap.min.css
+ ┃ ┃ ┣ 📜plugin.css
+ ┃ ┃ ┗ 📜style.css
+ ┃ ┣ 📂fonts
+ ┃ ┃ ┣ 📜flaticon.css
+ ┃ ┃ ┣ 📜Flaticon.eot
+ ┃ ┣ 📂images
+ ┃ ┃ ┣ 📂bg
+ ┃ ┃ ┃ ┣ 📜bg1.jpg
+ ┃ ┃ ┣ 📂blog
+ ┃ ┃ ┃ ┣ 📜blog1.jpg
+ ┃ ┃ ┣ 📂destination
+ ┃ ┃ ┃ ┣ 📜destination10.jpg
+ ┃ ┃ ┃ ┣ 📜destination12.jpg
+ ┃ ┃ ┣ 📂insta
+ ┃ ┃ ┃ ┣ 📜ins-1.jpg
+ ┃ ┃ ┣ 📂new-deal
+ ┃ ┃ ┃ ┣ 📜deal8.jpg
+ ┃ ┃ ┃ ┗ 📜deal9.jpg
+ ┃ ┃ ┣ 📂reviewer
+ ┃ ┃ ┃ ┣ 📜1.jpg
+ ┃ ┃ ┃ ┗ 📜6.jpg
+ ┃ ┃ ┣ 📂slider
+ ┃ ┃ ┃ ┣ 📜5.jpg
+ ┃ ┃ ┃ ┗ 📜7.jpg
+ ┃ ┃ ┣ 📂team
+ ┃ ┃ ┃ ┣ 📜img1.jpg
+ ┃ ┃ ┃ ┗ 📜img5.jpg
+ ┃ ┃ ┣ 📂testimonial
+ ┃ ┃ ┃ ┣ 📜img1.jpg
+ ┃ ┃ ┃ ┣ 📜img2.jpg
+ ┃ ┃ ┃ ┗ 📜img3.jpg
+ ┃ ┃ ┣ 📂trending
+ ┃ ┃ ┃ ┣ 📜trending-large.jpg
+ ┃ ┃ ┃ ┣ 📜trending1.jpg
+ ┃ ┃ ┃ ┣ 📜trending8.jpg
+ ┃ ┃ ┃ ┗ 📜trending9.jpg
+ ┃ ┃ ┣ 📜404-1.svg
+ ┃ ┃ ┣ 📜404.svg
+ ┃ ┃ ┣ 📜testimonial.png
+ ┃ ┃ ┗ 📜tour.mp4
+ ┃ ┗ 📂js
+ ┃ ┃ ┣ 📜bootstrap.min.js
+ ┃ ┃ ┣ 📜main.js
+ ┃ ┃ ┗ 📜plugin.js
+ ┣ 📂staticfiles
+ ┃ ┣ 📂admin
+ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┣ 📂vendor
+ ┃ ┃ ┃ ┃ ┗ 📂select2
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LICENSE-SELECT2.md
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜select2.css
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜select2.min.css
+ ┃ ┃ ┃ ┣ 📜autocomplete.css
+ ┃ ┃ ┃ ┣ 📜base.css
+ ┃ ┃ ┃ ┣ 📜unusable_password_field.css
+ ┃ ┃ ┃ ┗ 📜widgets.css
+ ┃ ┃ ┣ 📂img
+ ┃ ┃ ┃ ┣ 📂gis
+ ┃ ┃ ┃ ┃ ┣ 📜move_vertex_off.svg
+ ┃ ┃ ┃ ┃ ┗ 📜move_vertex_on.svg
+ ┃ ┃ ┃ ┣ 📜calendar-icons.svg
+ ┃ ┃ ┃ ┣ 📜icon-addlink.svg
+ ┃ ┃ ┃ ┣ 📜sorting-icons.svg
+ ┃ ┃ ┃ ┣ 📜tooltag-add.svg
+ ┃ ┃ ┃ ┗ 📜tooltag-arrowright.svg
+ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┣ 📂admin
+ ┃ ┃ ┃ ┃ ┣ 📜DateTimeShortcuts.js
+ ┃ ┃ ┃ ┃ ┗ 📜RelatedObjectLookups.js
+ ┃ ┃ ┃ ┣ 📂vendor
+ ┃ ┃ ┃ ┃ ┣ 📂jquery
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜jquery.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜jquery.min.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜LICENSE.txt
+ ┃ ┃ ┃ ┃ ┣ 📂select2
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂i18n
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜af.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ar.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜zh-TW.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LICENSE.md
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜select2.full.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜select2.full.min.js
+ ┃ ┃ ┃ ┃ ┗ 📂xregexp
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜LICENSE.txt
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜xregexp.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜xregexp.min.js
+ ┃ ┃ ┃ ┣ 📜actions.js
+ ┃ ┃ ┃ ┣ 📜theme.js
+ ┃ ┃ ┃ ┣ 📜unusable_password_field.js
+ ┃ ┃ ┃ ┗ 📜urlify.js
+ ┃ ┣ 📂css
+ ┃ ┃ ┣ 📜bootstrap.min.css
+ ┃ ┃ ┣ 📜plugin.css
+ ┃ ┃ ┗ 📜style.css
+ ┃ ┣ 📂fonts
+ ┃ ┃ ┣ 📜flaticon.css
+ ┃ ┃ ┣ 📜Simple-Line-Iconsb26c.eot@v=2.4.0
+ ┃ ┃ ┣ 📜Simple-Line-Iconsb26c.svg@v=2.4.0
+ ┃ ┃ ┣ 📜Simple-Line-Iconsb26c.ttf@v=2.4.0
+ ┃ ┃ ┣ 📜Simple-Line-Iconsb26c.woff2@v=2.4.0
+ ┃ ┃ ┗ 📜Simple-Line-Iconsb26c.woff@v=2.4.0
+ ┃ ┣ 📂images
+ ┃ ┃ ┣ 📂bg
+ ┃ ┃ ┃ ┣ 📜bg1.jpg
+ ┃ ┃ ┃ ┣ 📜bg2.jpg
+ ┃ ┃ ┃ ┣ 📜bg3.jpg
+ ┃ ┃ ┃ ┣ 📜bg4.jpg
+ ┃ ┃ ┃ ┣ 📜bg5.jpg
+ ┃ ┃ ┃ ┗ 📜bg7.jpg
+ ┃ ┃ ┣ 📂blog
+ ┃ ┃ ┃ ┣ 📜blog1.jpg
+ ┃ ┃ ┃ ┣ 📜blog8.jpg
+ ┃ ┃ ┃ ┗ 📜blog9.jpg
+ ┃ ┃ ┣ 📂destination
+ ┃ ┃ ┃ ┣ 📜destination10.jpg
+ ┃ ┃ ┃ ┣ 📜destination7.jpg
+ ┃ ┃ ┃ ┗ 📜destination9.jpg
+ ┃ ┃ ┣ 📂insta
+ ┃ ┃ ┃ ┣ 📜ins-1.jpg
+ ┃ ┃ ┃ ┣ 📜ins-2.jpg
+ ┃ ┃ ┃ ┗ 📜ins-9.jpg
+ ┃ ┃ ┣ 📂new-deal
+ ┃ ┃ ┃ ┗ 📜deal9.jpg
+ ┃ ┃ ┣ 📂reviewer
+ ┃ ┃ ┃ ┣ 📜1.jpg
+ ┃ ┃ ┃ ┗ 📜6.jpg
+ ┃ ┃ ┣ 📂slider
+ ┃ ┃ ┃ ┣ 📜1.jpg
+ ┃ ┃ ┃ ┣ 📜5.jpg
+ ┃ ┃ ┃ ┗ 📜7.jpg
+ ┃ ┃ ┣ 📂team
+ ┃ ┃ ┃ ┣ 📜img1.jpg
+ ┃ ┃ ┃ ┣ 📜img4.jpg
+ ┃ ┃ ┃ ┗ 📜img5.jpg
+ ┃ ┃ ┣ 📂testimonial
+ ┃ ┃ ┃ ┣ 📜img1.jpg
+ ┃ ┃ ┃ ┣ 📜img2.jpg
+ ┃ ┃ ┃ ┗ 📜img3.jpg
+ ┃ ┃ ┣ 📂trending
+ ┃ ┃ ┃ ┣ 📜trending-large.jpg
+ ┃ ┃ ┃ ┣ 📜trending8.jpg
+ ┃ ┃ ┃ ┗ 📜trending9.jpg
+ ┃ ┃ ┣ 📜404.svg
+ ┃ ┃ ┣ 📜bigyapan.jpg
+ ┃ ┃ ┣ 📜bigyapan1.jpg
+ ┃ ┣ 📂js
+ ┃ ┃ ┣ 📜bootstrap.min.js
+ ┃ ┃ ┣ 📜custom-swiper3.js
+ ┃ ┃ ┣ 📜jquery-3.5.1.min.js
+ ┃ ┃ ┣ 📜main.js
+ ┃ ┃ ┗ 📜plugin.js
+ ┃ ┗ 📂rest_framework
+ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┣ 📜bootstrap-theme.min.css
+ ┃ ┃ ┃ ┣ 📜bootstrap-theme.min.css.map
+ ┃ ┃ ┃ ┣ 📜bootstrap-tweaks.css
+ ┃ ┃ ┃ ┣ 📜bootstrap.min.css
+ ┃ ┃ ┃ ┣ 📜bootstrap.min.css.map
+ ┃ ┃ ┃ ┣ 📜default.css
+ ┃ ┃ ┃ ┣ 📜font-awesome-4.0.3.css
+ ┃ ┃ ┃ ┗ 📜prettify.css
+ ┃ ┃ ┣ 📂docs
+ ┃ ┃ ┃ ┣ 📂css
+ ┃ ┃ ┃ ┃ ┣ 📜base.css
+ ┃ ┃ ┃ ┃ ┣ 📜highlight.css
+ ┃ ┃ ┃ ┃ ┗ 📜jquery.json-view.min.css
+ ┃ ┃ ┃ ┣ 📂img
+ ┃ ┃ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┃ ┃ ┗ 📜grid.png
+ ┃ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┃ ┣ 📜api.js
+ ┃ ┃ ┃ ┃ ┣ 📜highlight.pack.js
+ ┃ ┃ ┃ ┃ ┗ 📜jquery.json-view.min.js
+ ┃ ┃ ┣ 📂fonts
+ ┃ ┃ ┃ ┣ 📜fontawesome-webfont.eot
+ ┃ ┃ ┃ ┣ 📜fontawesome-webfont.svg
+ ┃ ┃ ┣ 📂img
+ ┃ ┃ ┃ ┣ 📜glyphicons-halflings-white.png
+ ┃ ┃ ┃ ┣ 📜glyphicons-halflings.png
+ ┃ ┃ ┃ ┗ 📜grid.png
+ ┃ ┃ ┗ 📂js
+ ┃ ┃ ┃ ┣ 📜ajax-form.js
+ ┃ ┃ ┃ ┗ 📜prettify-min.js
+ ┣ 📂templates
+ ┃ ┣ 📂blogzone
+ ┃ ┃ ┣ 📜author_detail_stats.html
+ ┃ ┃ ┣ 📜post_views_timeseries.html
+ ┃ ┃ ┗ 📜search_results.html
+ ┃ ┣ 📂registration
+ ┃ ┃ ┗ 📜login.html
+ ┃ ┣ 📜base.html
+ ┃ ┣ 📜base_copy.html
+ ┃ ┗ 📜home.html
+ ┣ 📂venv
+ ┣ 📜db.sqlite3
+ ┣ 📜manage.py
+ ┗ 📜test

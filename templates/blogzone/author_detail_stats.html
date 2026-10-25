@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Post Analytics - {{ author.username }}{% endblock %}
+
+{% block content %}
+<h2 class="my-4">Post Analytics for {{ author.username }}</h2>
+
+<p class="text-muted">
+  Each row shows metrics for a single post by this author.
+</p>
+
+{% if post_data %}
+  <table class="table table-striped table-bordered align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>Post Title</th>
+        <th>Total Views</th>
+        <th>Self Views</th>
+        <th>External Views</th>
+        <th>Total Likes</th>
+        <th>Total Comments</th>
+        <th>View Post</th>
+        <th>Views Over Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in post_data %}
+        <tr>
+          <td>{{ row.post.title }}</td>
+          <td>{{ row.total_views }}</td>
+          <td>{{ row.self_views }}</td>
+          <td>{{ row.external_views }}</td>
+          <td>{{ row.likes_count }}</td>
+          <td>{{ row.comments_count }}</td>
+          <td>
+            <a href="{% url 'blogzone:post_detail' slug=row.post.slug %}"
+               class="btn btn-sm btn-outline-secondary">
+              View Post
+            </a>
+          </td>
+          <td>
+            <a href="{% url 'blogzone:post_views_timeseries' slug=row.post.slug %}"
+               class="btn btn-sm btn-outline-info">
+              Views per day
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <div class="alert alert-info">
+    This author has no posts yet.
+  </div>
+{% endif %}
+{% endblock %}

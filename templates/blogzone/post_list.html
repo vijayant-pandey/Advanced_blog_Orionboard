@@ -1,0 +1,594 @@
+{% extends "base_copy.html" %}
+{% load static %}
+
+{% block title %}Blog Posts - Advanced Blog{% endblock %}
+
+{% block content %}
+
+{# ===== Hero / breadcrumb-like top (using first post if available) ===== #}
+<div class="breadcrumb-main pb-0 pt-4 bg-grey">
+  <div class="breadcrumb-outer">
+    <div class="container">
+      {% if posts %}
+        {% with posts.0 as featured %}
+        <div class="row align-items-center">
+          <div class="col-lg-6 mb-4">
+            <div class="cover-content">
+              <div class="author-detail mb-2">
+                {% if featured.category %}
+                  <span class="tag white bg-theme py-1 px-3 me-2">
+                    #{{ featured.category.name }}
+                  </span>
+                {% endif %}
+                  <span class="tag white bg-navy py-1 px-3">
+                    <i class="fa fa-eye"></i>
+                    {{ featured.view_count|default:"0" }}
+                  </span>
+              </div>
+                <h1 class="mb-2">
+                    <a class="text-dark text-decoration-none"
+                    href="{% url 'blogzone:post_detail' slug=featured.slug %}">
+                    {{ featured.title }}
+                    </a>
+                </h1>
+
+                <div class="author-detail d-flex align-items-center flex-wrap">
+                    <span class="me-3 mb-1">
+                    <i class="fa fa-clock"></i>
+                    Posted on
+                    {{ featured.published_at|default:featured.created_at|date:"M d, Y" }}
+                    </span>
+
+                    <span class="me-3 mb-1">
+                    <i class="fa fa-user"></i>
+                    {{ featured.author.username }}
+                    </span>
+
+                    <span class="mb-1">
+                    <i class="fa fa-comments"></i>
+                    {{ featured.comments_count|default:"0" }} comments
+                    </span>
+                </div>
+            </div>
+          </div>
+
+            <div class="col-lg-6 mb-4">
+                {% if featured.cover_image %}
+                <div class="box-shadow p-3 position-relative bg-white">
+                    <img src="{{ featured.cover_image.url }}"
+                        alt="{{ featured.title }}"
+                        class="w-100"
+                        style="max-height:360px; object-fit:cover;">
+                </div>
+                {% else %}
+                <div class="box-shadow p-5 bg-white text-center">
+                    <p class="mb-0 text-muted">No cover image for this post.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endwith %}
+      {% else %}
+        <div class="row">
+          <div class="col-12 py-4">
+            <h1 class="mb-2">Blog Posts</h1>
+            <p class="lead text-muted mb-0">
+              No posts published yet. Once you start publishing, they’ll appear here in a beautiful grid.
+            </p>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="dot-overlay"></div>
+</div>
+
+
+
+
+
+{# ===== Blog listing + sidebar ===== #}
+<section class="blog blog-left pt-4 pb-5">
+  <div class="container">
+    <div class="row">
+      {# MAIN COLUMN ===== #}
+      <div class="col-lg-8">
+        <div class="listing-inner">
+
+          {# top result info and sort controls (simple, no real JS) #}
+          <div class="row mb-3">
+            <div class="col-lg-12">
+              <div class="list-results d-flex align-items-center justify-content-between flex-wrap">
+                <div class="list-results-sort mb-2 mb-md-0">
+                  {% if posts %}
+                    <p class="m-0">
+                      Showing {{ posts|length }} result{{ posts|length|pluralize }}
+                    </p>
+                  {% else %}
+                    <p class="m-0">No posts to show.</p>
+                  {% endif %}
+                </div>
+                <div class="click-menu d-flex align-items-center justify-content-between">
+                    <div class="change-list me-2" id="btn-list-view">
+                        <a href="javascript:void(0);"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="change-grid f-active me-2" id="btn-grid-view">
+                        <a href="javascript:void(0);"><i class="fa fa-th"></i></a>
+                    </div>
+
+                    {% comment %}
+                    <div class="sortby d-flex align-items-center justify-content-between ms-2">
+                    <select id="sort-select" class="niceSelect">
+                        <option value="">Sort By</option>
+                        <option value="new" {% if request.GET.sort == 'new' %}selected{% endif %}>
+                        Newest first
+                        </option>
+                        <option value="old" {% if request.GET.sort == 'old' %}selected{% endif %}>
+                        Oldest first
+                        </option>
+                    </select>
+                    </div>
+                    {% endcomment %}
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {# ===== GRID / LIST VIEWS ===== #}
+          {% if posts %}
+            {# ========= GRID VIEW (default) ========= #}
+            <div id="post-grid-view" class="row mt-4">
+              {% for post in posts %}
+                <div class="col-lg-6 mb-4">
+                  <div class="trend-item box-shadow bg-white h-100 d-flex flex-column">
+                    {% if post.cover_image %}
+                      <div class="trend-image">
+                        <a href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                          <img src="{{ post.cover_image.url }}"
+                               alt="{{ post.title }}"
+                               class="img-fluid w-100"
+                               style="height:220px; object-fit:cover;">
+                        </a>
+                      </div>
+                        {% else %}
+                        <div class="trend-image">
+                            <a href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                            <img src="{% static 'images/trending/trending8.jpg' %}"
+                                alt="{{ post.title }}"
+                                class="img-fluid w-100"
+                                style="height:220px; object-fit:cover;">
+                            </a>
+                        </div>
+                        {% endif %}
+
+                    <div class="trend-content-main p-4 d-flex flex-column flex-grow-1">
+                      <div class="trend-content mb-2">
+                        {% if post.category %}
+                          <h5 class="theme text-uppercase small mb-1">
+                            {{ post.category.name }}
+                          </h5>
+                        {% endif %}
+
+                        <h4 class="mb-2">
+                          <a href="{% url 'blogzone:post_detail' slug=post.slug %}"
+                             class="text-dark text-decoration-none">
+                            {{ post.title }}
+                          </a>
+                        </h4>
+
+                        <p class="mb-2 small text-muted">
+                          {% if post.summary %}
+                            {{ post.summary|truncatewords:35 }}
+                          {% else %}
+                            {{ post.content|default_if_none:""|truncatewords:35 }}
+                          {% endif %}
+
+
+
+                        </p>
+                        <a href="{% url 'blogzone:post_detail' slug=post.slug %}"
+                             class="grey font-weight-light">
+                            Read This <i class="fa fa-angle-right"></i>
+                          </a>
+                        
+                      </div>
+
+                      <div class="entry-meta d-flex align-items-center justify-content-between mt-auto">
+                        <div class="entry-author d-flex align-items-center">
+                          <img src="{% static 'images/reviewer/1.jpg' %}"
+                               alt="{{ post.author.username }}"
+                               class="rounded-circle me-2"
+                               style="width:34px; height:34px; object-fit:cover;">
+                          <span class="small">
+                            {{ post.author.username }}
+                          </span>
+                          
+                        </div>
+                        
+                        <div class="entry-metalist d-flex align-items-center">
+                          <ul class="list-unstyled d-flex mb-0 small">
+                            <li class="me-2">
+                              <i class="fa fa-eye"></i>
+                              {{ post.view_count|default:"0" }}
+                            </li>
+                            <li class="me-2">
+                              <i class="fa fa-heart"></i>
+                              {{ post.likes_count|default:"0" }}
+                            </li>
+                            <li>
+                              <i class="fa fa-comments"></i>
+                              {{ post.comments_count|default:"0" }}
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div> {# /.trend-content-main #}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            {# ========= LIST VIEW (hidden initially) ========= #}
+            <div id="post-list-view" class="row mt-4 d-none">
+              {% for post in posts %}
+                <div class="col-12">
+                  <div class="blog-full d-flex mb-4 border-b pb-4">
+                    <div class="row {% if forloop.counter|divisibleby:2 %}flex-row-reverse{% endif %}">
+                      <div class="col-lg-5 col-md-4 blog-height">
+                        <div class="blog-image">
+                          {% if post.cover_image %}
+                            <a href="{% url 'blogzone:post_detail' slug=post.slug %}"
+                               style="background-image: url('{{ post.cover_image.url }}');">
+                            </a>
+                          {% else %}
+                            <a href="{% url 'blogzone:post_detail' slug=post.slug %}"
+                               style="background-image: url('{% static 'images/blog/blog1.jpg' %}');">
+                            </a>
+                          {% endif %}
+                        </div>
+                      </div>
+                      <div class="col-lg-7 col-md-8">
+                        <div class="blog-content">
+                          {% if post.category %}
+                            <h5 class="theme mb-2">{{ post.category.name }}</h5>
+                          {% endif %}
+                          <h3 class="mb-2">
+                            <a href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                              {{ post.title }}
+                            </a>
+                          </h3>
+                          <p class="date-cats mb-2 small">
+                            {% if post.category %}
+                              <span class="me-2">
+                                <i class="fa fa-file"></i> {{ post.category.name }}
+                              </span>
+                            {% endif %}
+                            {% if post.published_at %}
+                              <span class="me-2">
+                                <i class="fa fa-calendar-alt"></i> {{ post.published_at|date:"M d, Y" }}
+                              </span>
+                            {% endif %}
+                            <span>
+                              <i class="fa fa-user"></i> {{ post.author.username }}
+                            </span>
+                          </p>
+                          <p class="mb-2">
+                            {% if post.summary %}
+                              {{ post.summary|truncatewords:35 }}
+                            {% else %}
+                              {{ post.content|default_if_none:""|truncatewords:35 }}
+                            {% endif %}
+                          </p>
+                          <a href="{% url 'blogzone:post_detail' slug=post.slug %}"
+                             class="grey font-weight-light">
+                            Read This <i class="fa fa-angle-right"></i>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="alert alert-info mt-4">
+              No posts published yet.
+            </div>
+          {% endif %}
+
+
+          {# PAGINATION (if you're using Django's generic ListView) ===== #}
+          {% if is_paginated %}
+            <div class="pagination-main text-center mt-3">
+              <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page=1">
+                      <i class="fa fa-angle-double-left"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                      <i class="fa fa-angle-left"></i>
+                    </a>
+                  </li>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                  {% if num == page_obj.number %}
+                    <li class="page-item active">
+                      <a class="page-link" href="#">{{ num }}</a>
+                    </li>
+                  {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <li class="page-item">
+                      <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                      <i class="fa fa-angle-right"></i>
+                    </a>
+                  </li>
+                  <li class="page-item">
+                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">
+                      <i class="fa fa-angle-double-right"></i>
+                    </a>
+                  </li>
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+
+      {# SIDEBAR ===== #}
+      <div class="col-lg-4 col-md-12">
+        <div class="sidebar-sticky">
+          <div class="list-sidebar">
+
+            {# Example static sidebar banner #}
+
+            {% if sidebar_video and sidebar_video.youtube_id %}
+            <div class="mag-image mb-3 position-relative">
+
+              {# Clickable area -> opens YouTube in new tab #}
+              <a href="{{ sidebar_video.youtube_watch_url }}"
+                target="_blank"
+                rel="noopener"
+                class="d-block position-relative">
+
+                {# YouTube thumbnail #}
+                <img src="{{ sidebar_video.thumbnail_url }}"
+                    alt="{{ sidebar_video.title }}"
+                    class="w-100">
+
+                {# Your play button overlay, same style as you showed #}
+                <div class="video-button text-center">
+                  <div class="call-button text-center">
+                    <span class="play-btn js-video-button">
+                      <i class="fa fa-play bg-blue"></i>
+                    </span>
+                  </div>
+                  <div class="video-figure"></div>
+                </div>
+              </a>
+            </div>
+              <div class="mag-image mb-3 position-relative">
+                <img src="{% static 'images/trending/trending10.jpg' %}" alt="Image">
+              </div>
+                {% else %}
+              <div class="mag-image mb-3 position-relative">
+                <img src="{% static 'images/trending/trending10.jpg' %}" alt="Image">
+              </div>
+          {% endif %}
+
+
+
+            {# Popular / Recent tabs — using your popular_posts + latest_posts if you add it #}
+            <div class="popular-post sidebar-item mb-4">
+              <div class="sidebar-tabs">
+                <div class="post-tabs">
+                  <ul class="nav nav-tabs nav-pills nav-fill" id="postsTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link active"
+                              id="popular-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#popular"
+                              type="button"
+                              role="tab"
+                              aria-controls="popular"
+                              aria-selected="true">
+                        Popular
+                      </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                      <button class="nav-link"
+                              id="recent-tab"
+                              data-bs-toggle="tab"
+                              data-bs-target="#recent"
+                              type="button"
+                              role="tab"
+                              aria-controls="recent"
+                              aria-selected="false">
+                        Recent
+                      </button>
+                    </li>
+                  </ul>
+
+                  <div class="tab-content" id="postsTabContent">
+                    {# Popular posts tab #}
+                    <div class="tab-pane fade show active"
+                         id="popular"
+                         role="tabpanel"
+                         aria-labelledby="popular-tab">
+                      {% if popular_posts %}
+                        {% for p in popular_posts %}
+                          <article class="post mb-3 border-bottom pb-3">
+                            <div class="s-content d-flex align-items-center justify-space-between">
+                              <div class="sidebar-image w-25 me-3">
+                                <a href="{% url 'blogzone:post_detail' slug=p.slug %}">
+                                  {% if p.cover_image %}
+                                    <img src="{{ p.cover_image.url }}" alt="{{ p.title }}" class="img-fluid">
+                                  {% else %}
+                                    <img src="{% static 'images/trending/trending1.jpg' %}" alt="{{ p.title }}" class="img-fluid">
+                                  {% endif %}
+                                </a>
+                              </div>
+                              <div class="content-list w-75">
+                                <h5 class="mb-1 small">
+                                  <a href="{% url 'blogzone:post_detail' slug=p.slug %}" class="text-dark text-decoration-none">
+                                    {{ p.title|truncatewords:10 }}
+                                  </a>
+                                </h5>
+                                {% if p.published_at %}
+                                  <div class="date small text-muted">
+                                    {{ p.published_at|date:"d M Y" }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </article>
+                        {% endfor %}
+                      {% else %}
+                        <p class="small text-muted mt-2 mb-0">No popular posts yet.</p>
+                      {% endif %}
+                    </div>
+
+                    {# Recent posts tab – just reuse posts or add a recent_posts queryset later #}
+                    <div class="tab-pane fade"
+                         id="recent"
+                         role="tabpanel"
+                         aria-labelledby="recent-tab">
+                      {% if posts %}
+                        {% for p in posts|slice:":3" %}
+                          <article class="post mb-3 border-bottom pb-3">
+                            <div class="s-content d-flex align-items-center justify-space-between">
+                              <div class="sidebar-image w-25 me-3">
+                                <a href="{% url 'blogzone:post_detail' slug=p.slug %}">
+                                  {% if p.cover_image %}
+                                    <img src="{{ p.cover_image.url }}" alt="{{ p.title }}" class="img-fluid">
+                                  {% else %}
+                                    <img src="{% static 'images/trending/trending2.jpg' %}" alt="{{ p.title }}" class="img-fluid">
+                                  {% endif %}
+                                </a>
+                              </div>
+                              <div class="content-list w-75">
+                                <h5 class="mb-1 small">
+                                  <a href="{% url 'blogzone:post_detail' slug=p.slug %}" class="text-dark text-decoration-none">
+                                    {{ p.title|truncatewords:10 }}
+                                  </a>
+                                </h5>
+                                {% if p.published_at %}
+                                  <div class="date small text-muted">
+                                    {{ p.published_at|date:"d M Y" }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            </div>
+                          </article>
+                        {% endfor %}
+                      {% else %}
+                        <p class="small text-muted mt-2 mb-0">No recent posts yet.</p>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {# Tags sidebar ===== #}
+            <div class="sidebar-item mb-4">
+              <h4>Tags</h4>
+              <ul class="sidebar-tags list-unstyled d-flex flex-wrap">
+                {% if popular_tags %}
+                  {% for tag in popular_tags %}
+                    <li class="me-2 mb-2">
+                      <a href="{% url 'blogzone:search' %}?q={{ tag.name|urlencode }}">
+                        {{ tag.name }}
+                      </a>
+                    </li>
+                  {% endfor %}
+                {% else %}
+                  <li><span class="text-muted small">No tags yet.</span></li>
+                {% endif %}
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% block extra_js %}
+  {{ block.super }}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const btnGrid = document.getElementById('btn-grid-view');
+      const btnList = document.getElementById('btn-list-view');
+      const gridView = document.getElementById('post-grid-view');
+      const listView = document.getElementById('post-list-view');
+
+      if (!btnGrid || !btnList || !gridView || !listView) {
+        console.warn('Grid/List toggle: some elements not found.');
+      } else {
+        function activateGrid() {
+          gridView.classList.remove('d-none');
+          listView.classList.add('d-none');
+
+          btnGrid.classList.add('f-active');
+          btnList.classList.remove('f-active');
+        }
+
+        function activateList() {
+          listView.classList.remove('d-none');
+          gridView.classList.add('d-none');
+
+          btnList.classList.add('f-active');
+          btnGrid.classList.remove('f-active');
+        }
+
+        btnGrid.addEventListener('click', function (e) {
+          e.preventDefault();
+          activateGrid();
+        });
+
+        btnList.addEventListener('click', function (e) {
+          e.preventDefault();
+          activateList();
+        });
+      }
+
+      // ===== Sort dropdown logic =====
+      const sortSelect = document.getElementById('sort-select');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function () {
+          const value = this.value;  // "new", "old" or ""
+          const url = new URL(window.location.href);
+
+          // update ?sort=...
+          if (value) {
+            url.searchParams.set('sort', value);
+          } else {
+            url.searchParams.delete('sort');
+          }
+
+          // reset pagination when changing sort
+          url.searchParams.delete('page');
+
+          window.location.href = url.toString();
+        });
+      }
+    });
+  </script>
+{% endblock %}
+
+
+
+{% endblock %}

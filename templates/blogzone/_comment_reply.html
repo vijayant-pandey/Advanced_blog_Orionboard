@@ -1,0 +1,31 @@
+{# templates/blogzone/_comment_reply.html #}
+{% load static %}
+
+<div class="comment-box mb-2 clearfix" data-comment-id="{{ reply.id }}">
+  <div class="d-flex">
+    <!-- Reply avatar -->
+    <div class="comment-image mt-2 me-3">
+      <img src="{% static 'images/reviewer/2.jpg' %}" alt="avatar">
+    </div>
+
+    <!-- Reply content -->
+    <div class="comment-content flex-grow-1">
+      <div class="d-flex justify-content-between align-items-center flex-wrap">
+        <h5 class="mb-0 me-5">
+          {{ reply.user.get_full_name|default:reply.user.username }}
+        </h5>
+        <small class="text-muted comment-date mb-0">
+        <!-- <small class="comment-date mb-0 text-muted"> -->
+
+          {{ reply.created_at|date:"M d, Y H:i" }}
+        </small>
+      </div>
+
+      <p class="comment mb-1 mt-1">
+        {{ reply.content|linebreaks }}
+      </p>
+    </div>
+  </div>
+</div>
+
+

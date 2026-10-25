@@ -1,0 +1,110 @@
+{# templates/blogzone/gallery.html #}
+{% extends "base_copy.html" %}  {# or "base_copy.html" if that’s your real base #}
+{% load static %}
+
+{% block title %}Gallery - Advanced Blog{% endblock %}
+
+{% block content %}
+
+{# ========== Breadcrumb ========== #}
+<section class="breadcrumb-main pb-0 pt-6"
+         style="background-image: url('{% static "images/bg/bg2.jpg" %}');">
+  <div class="breadcrumb-outer">
+    <div class="container">
+      <div class="breadcrumb-content d-md-flex align-items-center pt-10">
+        <h2 class="mb-0">Gallery</h2>
+        <nav aria-label="breadcrumb" class="ms-md-3 mt-2 mt-md-0">
+          <ul class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Gallery</li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <div class="dot-overlay"></div>
+</section>
+
+{# ========== Gallery ========== #}
+<div class="gallery pb-6 pt-10">
+  <div class="container">
+
+    {% if post_images or section_images %}
+      <div class="row blog-main">
+
+        {# --- 1) Post cover images --- #}
+        {% for post in post_images %}
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mansonry-item">
+            <div class="gallery-item mb-4">
+              <div class="gallery-image">
+                <img src="{{ post.cover_image.url }}" alt="{{ post.title }}">
+                <div class="overlay"></div>
+              </div>
+              <div class="gallery-content">
+                <ul>
+                  {# open full image in lightbox #}
+                  <li>
+                    <a href="{{ post.cover_image.url }}"
+                       data-lightbox="gallery"
+                       data-title="{{ post.title|default:'Post Image' }}">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </li>
+                  {# link back to the post #}
+                  <li>
+                    <a href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                      <i class="fa fa-link"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        {# --- 2) PostSection images --- #}
+        {% for sec in section_images %}
+          <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 mansonry-item">
+            <div class="gallery-item mb-4">
+              <div class="gallery-image">
+                <img src="{{ sec.image.url }}"
+                     alt="{{ sec.heading|default:sec.post.title }}">
+                <div class="overlay"></div>
+              </div>
+              <div class="gallery-content">
+                <ul>
+                  {# open full image in lightbox #}
+                  <li>
+                    <a href="{{ sec.image.url }}"
+                       data-lightbox="gallery"
+                       data-title="{{ sec.heading|default:sec.post.title }}">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                  </li>
+                  {# link back to the parent post #}
+                  <li>
+                    <a href="{% url 'blogzone:post_detail' slug=sec.post.slug %}">
+                      <i class="fa fa-link"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <div class="row">
+        <div class="col-12">
+          <div class="alert alert-info mt-4">
+            No images to display yet. Create posts with cover or section images and they will appear here.
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

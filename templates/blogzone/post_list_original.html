@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Blog Posts - Advanced Blog{% endblock %}
+
+{% block content %}
+    <h1 class="my-4">Blog Posts</h1>
+
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        {% if post.cover_image %}
+                            <img src="{{ post.cover_image.url }}" class="card-img-top" alt="Cover image">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                                {{ post.title }}
+                                </a>
+                            </h5>
+                            <p class="card-text mb-1">
+                                By {{ post.author.username }}
+                                {% if post.published_at %}
+                                    on {{ post.published_at|date:"M d, Y" }}
+                                {% endif %}
+                            </p>
+
+                            <p class="card-text">
+                                <small class="text-muted">
+                                    Views: {{ post.view_count }} |
+                                    Likes: {{ post.likes_count }} |
+                                    Comments: {{ post.comments_count }}
+                                </small>
+                            </p>
+
+                            <a class="btn btn-sm btn-outline-primary"
+                               href="{% url 'blogzone:post_detail' slug=post.slug %}">
+                                Read more
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            No posts published yet.
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base_copy.html" %}
+
+{% block title %}Home - Advanced Blog{% endblock %}
+
+{% block content %}
+    <div class="mt-4">
+        <h1>Welcome to Advanced Blog</h1>
+        <p class="lead">
+            This is your advanced blog platform. We’ll add analytics, RBAC, and more soon.
+        </p>
+
+        <a class="btn btn-primary" href="{% url 'blogzone:post_list' %}">
+            View Blog Posts
+        </a>
+    </div>
+{% endblock %}
